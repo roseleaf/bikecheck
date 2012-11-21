@@ -1,0 +1,54 @@
+// Place all the styles related to the public controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+body{
+  font-family: 'helvetica';
+  font-size:22px;
+}
+.content{
+  width: 700px;
+  margin: 0 auto;
+}
+.black{
+  color:black;
+}
+#heading{
+  color:#009ada;
+  text-transform: uppercase;
+}
+#tagline{
+  color:#333;
+  font-size: 10px;
+}
+#response{
+  color:#c55200;
+}
+
+
+@-webkit-keyframes flash {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+}
+@-moz-keyframes flash {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+}
+@-o-keyframes flash {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+}
+@keyframes flash {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+.flash{
+  -webkit-animation: flash 1s infinite;
+  -moz-animation: flash 1s infinite;
+  -o-animation: flash 1s infinite;
+  animation: flash 1s infinite;  
+}
