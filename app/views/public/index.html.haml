@@ -1,5 +1,5 @@
-It's currently #{Time.now.strftime("%H")}<span class="flash">:</span>#{Time.now.strftime("%M %p")}, so if you're leaving from 
-
+.timeDiv
+  =render 'time'
 
 %select{:name => 'origin', "data-target" => 'origin'}
   -@stations.each do |k, v|

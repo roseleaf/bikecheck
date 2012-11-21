@@ -1,7 +1,9 @@
 $(document).ready(function(){
+  //This gets triggered when selection in drop-down is changed
   $("select").change(changeSelect)
   .trigger('change');
 
+  //Set origin and destination variables
   function changeSelect(){
     $("select[name='origin'] option:selected").each(function(){
       origin = $(this).val();
@@ -10,8 +12,8 @@ $(document).ready(function(){
       dest = $(this).val();
     });
 
-
     if(origin != dest){
+    //As long as they are two different stations, make request
       $.ajax("checkbike",
       {
         type: 'PUT',
@@ -24,12 +26,12 @@ $(document).ready(function(){
           $("#response").text(response.responseText);
         }
       });
-
     };
-
-
-
+  };
+  //refresh the time every second
+  function timeRefresh() {
+    $(".timeDiv").load('public/time');
+    setTimeout(timeRefresh, 1000);
   }
-
-
+  timeRefresh();
 });

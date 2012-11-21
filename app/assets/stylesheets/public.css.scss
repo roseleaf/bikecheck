@@ -52,3 +52,19 @@ body{
   -o-animation: flash 1s infinite;
   animation: flash 1s infinite;  
 }
+
+
+.bike{
+  position: absolute;
+  display: none;
+}
+.first{
+  margin-top: -35px;
+}
+.second{
+  margin-top: -20px;
+}
+.onbart{
+  position: absolute;
+  margin-left: 115px;
+}
