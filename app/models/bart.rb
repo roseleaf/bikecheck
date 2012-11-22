@@ -37,10 +37,8 @@ class Bart
       dest: arrive
     }
 
-
     params = RestClient.get(path, {params: query_values})
     parsed_data = Crack::XML.parse(params)
-    #Rails.logger.info(parsed_data)
 
     legs = parsed_data["root"]["schedule"]["request"]["trip"]
     bikeflags = []
@@ -49,9 +47,7 @@ class Bart
     
     legs.each do |leg|
       bikeflags << leg["bikeflag"]
-
     end
-
 
     if bikeflags.include?("0")
       return "not now, cowboy. It's been outlawed."
