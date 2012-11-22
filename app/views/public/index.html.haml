@@ -1,17 +1,9 @@
 .timeDiv
   =render 'time'
-
-%select{:name => 'origin', "data-target" => 'origin'}
+%select.leave{:name => 'origin', "data-target" => 'origin'}
   -@stations.each do |k, v|
     %option{:value=>v}
       =h k
     %end
-and headed to
-%select{:name => 'dest', "data-target" => 'arrive'}
-  -@stations.each do |k, v|
-    %option{:value=>v}
-      =h k
-    %end
-,
 %div#response
 
