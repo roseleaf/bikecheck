@@ -7,6 +7,9 @@ $(document).ready(function(){
   var first = $("select[name='origin'] option:first").val();
   var last = $("select[name='origin'] option:last-child").val();
   checkBart(first, last);
+  var hour = "";
+  var minute = "";
+  var period = "";
 
   //Set origin variable based on user input
   function changeSelect(){
@@ -25,6 +28,8 @@ $(document).ready(function(){
   };
 
   function checkBart(origin, dest){
+    $("#response").text("checking...").delay(500);
+
     if(origin && dest){
     //As soon as the input is set, make request
       $.ajax("checkbike",
@@ -43,10 +48,7 @@ $(document).ready(function(){
   
   //Display Bart is closed text if it is after hours:
   function fillInResponse(response){
-    var currentTime = new Date();
-    var hour = currentTime.getHours();
-    var minute = currentTime.getMinutes();
-    if(hour == 0 && minute > 25 || hour < 04){
+    if(hour == 0 && minute > 25 || hour < 04 && period == "AM" ){
       $("#response").text("Bart's closed, check back after 4AM, Cowboy.");
     } else {
       $("#response").text(response.responseText);
@@ -56,7 +58,15 @@ $(document).ready(function(){
 
   //refresh the time every second
   function timeRefresh() {
-    $(".timeDiv").load('public/time');
+    var currentTime = new Date();
+    hour = currentTime.getHours();
+    minute = currentTime.getMinutes();
+    if(hour > 11){ period = "PM" } else { period = "AM" };
+    if(hour > 12){ hour -= 12 };
+    if(minute < 10){ minute = "0" + minute }
+    $("#hour").text(hour);
+    $("#minute").text(minute + " " + period );
+    // $(".timeDiv").load('public/time');
     setTimeout(timeRefresh, 1000);
   }
   timeRefresh();

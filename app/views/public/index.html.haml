@@ -1,5 +1,5 @@
 .timeDiv
-  =render 'time'
+  It's currently <span class="time"><span id="hour"></span><span class="flash">:</span><span id="minute"></span></span>, so if you're leaving from 
 %select.leave{:name => 'origin', "data-target" => 'origin'}
   -@stations.each do |k, v|
     %option{:value=>v}
