@@ -43,18 +43,17 @@ class Bart
     legs = parsed_data["root"]["schedule"]["request"]["trip"]
     bikeflags = []
 
-    Rails.logger.info(legs)
-    
     legs.each do |leg|
       bikeflags << leg["bikeflag"]
     end
 
-    if bikeflags.include?("0")
+    # Once in a while, the "legs" appears to not be a normal hash and will not select by key,
+    # so we add a brute-force fallback here to make sure we return the correct result:
+    if bikeflags.include?("0") || parsed_data.to_s.include?('"bikeflag"=>"0"')
       return "not now, cowboy. It's been outlawed."
     else
       return "better mount up, rough rider. It's allowed!"
     end
-
   end
-
+  # BART is trying to be really cool and nice with their API, but it still needs a lot of work!
 end
