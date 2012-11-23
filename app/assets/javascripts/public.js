@@ -1,4 +1,5 @@
 $(document).ready(function(){
+  timeRefresh();
   //This gets triggered when selection in drop-down is changed
   $("select").change(changeSelect)
   .trigger('change');
@@ -23,7 +24,6 @@ $(document).ready(function(){
     } else{
       dest = first;
     }
-
     checkBart(origin, dest);
   };
 
@@ -31,15 +31,22 @@ $(document).ready(function(){
     //Give user 1/2 second feedback that their request was received
     $("#response").text("checking...").delay(500);
 
+    if(hour == 0 && minute > 25 || hour > 0 && hour < 04 && period == "AM" ){
+      $("#response").text("Bart's closed, check back after 4AM, Cowboy.");
+      return;
+    }; 
+
     if(origin && dest){
     //As soon as the input is set, make request
-      $.ajax("checkbike",
+    //Ugly url construction is to allow the mobile app to make this request as "GET":
+      $.ajax("checkbike/" + origin + "/" + dest,
       {
-        type: 'PUT',
-        data: {
-          depart: origin,
-          arrive: dest        
-        },
+        type: 'GET',
+        ////This is what you can use if you have ONLY the javascript app:
+        // data: {
+        //   depart: origin,
+        //   arrive: dest        
+        // },
         complete: function(response){
           fillInResponse(response);
         }
@@ -49,11 +56,7 @@ $(document).ready(function(){
   
   //Display Bart is closed text if it is after hours:
   function fillInResponse(response){
-    if(hour == 0 && minute > 25 || hour > 0 && hour < 04 && period == "AM" ){
-      $("#response").text("Bart's closed, check back after 4AM, Cowboy.");
-    } else {
-      $("#response").text(response.responseText);
-    };
+    $("#response").text(response.responseText);
   };
 
 
@@ -70,5 +73,4 @@ $(document).ready(function(){
     $("#minute").text(minute + " " + period );
     setTimeout(timeRefresh, 1000);
   }
-  timeRefresh();
 });
